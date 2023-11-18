@@ -1,0 +1,90 @@
+#!/usr/bin/env zsh
+
+# Creates a branch.
+function __create_branch {
+  # Get name.
+  name="${1:-$(cat /dev/urandom | LC_ALL=C tr -dc "a-z0-9" | head -c 5)}"
+
+  # Create branch.
+  git checkout -b "${name}"
+}
+
+# Pushes a branch and creates a pull request.
+function __create_pull-request {
+  # Get branch.
+  branch="$(git branch --show-current)"
+
+  # Push branch.
+  git push --set-upstream origin "${branch}"
+
+  # Get repository.
+  repository="$(git remote get-url origin)"
+  repository="${repository%.git}"
+  repository="${repository#*:}"
+
+  # Create pull request.
+  open "https://github.com/${repository}/pull/new/${branch}"
+}
+
+# Removes trash and lists home.
+function __list_home {
+  # Clear screen.
+  clear
+
+  # Go home.
+  cd "${HOME}"
+
+  # Remove trash.
+  find "${HOME}" -path "${HOME}/Library" -prune -o -type f \( -name .DS_Store -o -name .lesshst \) -exec rm "{}" +
+
+  # Get directories.
+  directories=($(find "${HOME}" -path "${HOME}/Library" -prune -o -mindepth 1 -maxdepth 1 -type d -not \( -name .Trash -o -name .zsh_sessions \) -print))
+
+  # List home.
+  ls -lA . ${directories:t}
+}
+
+# Resets & updates repositories in Documents.
+function __update_repositories {
+  # Clear screen.
+  clear
+
+  # Get repositories.
+  repositories=($(find "${HOME}/Documents" -mindepth 2 -maxdepth 2 -type d -name .git -exec dirname "{}" + | sort))
+
+  # Iterate repositories.
+  for repository in ${repositories}
+  do
+    # Go to repository.
+    cd "${repository}"
+
+    # Print repository.
+    echo "# ${repository:t} ($(git config user.email))"
+
+    # Reset repository.
+    (
+      git clean -xfd
+      git reset --hard
+      git checkout main
+    ) &> /dev/null
+
+    # Update repository.
+    git pull --prune --rebase 2> /dev/null
+
+    # List branches.
+    git branch --all
+
+    # Print newline.
+    echo
+  done
+}
+
+# Get verb and object.
+verb="${1}"
+object="${2}"
+
+# Shift arguments.
+shift ; shift
+
+# Call function.
+__${verb}_${object} ${@}
