@@ -79,6 +79,22 @@ function __update_repositories {
   done
 }
 
+# Updates schemas.
+function __update_schemas {
+  # Get schemas.
+  schemas=(${@:-$(find . -type f -name "*.schema.json")})
+
+  # Iterate schemas.
+  for schema in ${schemas}
+  do
+    # Get YAML.
+    yaml="${schema%.schema.json}.yaml"
+
+    # Update schema.
+    helm-schema-gen "${yaml}" > "${schema}"
+  done
+}
+
 # Get verb and object.
 verb="${1}"
 object="${2}"
