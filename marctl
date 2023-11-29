@@ -65,7 +65,7 @@ function __update_repositories {
     (
       git clean -xfd
       git reset --hard
-      git checkout main
+      git checkout main || git checkout master
     ) &> /dev/null
 
     # Update repository.
