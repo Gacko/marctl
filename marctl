@@ -59,7 +59,7 @@ function __update_repositories {
     cd "${repository}"
 
     # Print repository.
-    echo "# ${repository:t} ($(git config user.email))"
+    echo "# ${repository:t}"
 
     # Reset repository.
     (
