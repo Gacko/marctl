@@ -91,7 +91,7 @@ function __update_schemas {
     yaml="${schema%.schema.json}.yaml"
 
     # Update schema.
-    helm-schema-gen "${yaml}" > "${schema}"
+    helm schema-gen "${yaml}" > "${schema}"
   done
 }
 
