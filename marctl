@@ -12,7 +12,7 @@ function __create_branch {
 # Pushes a branch and creates a pull request.
 function __create_pull-request {
   # Get branch.
-  branch="$(git branch --show-current)"
+  branch="${1:-$(git branch --show-current)}"
 
   # Push branch.
   git push --set-upstream origin "${branch}"
