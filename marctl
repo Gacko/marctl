@@ -19,11 +19,12 @@ function __create_pull-request {
 
   # Get repository.
   repository="$(git remote get-url origin)"
+  repository="${repository#*@}"
+  repository="${repository/://}"
   repository="${repository%.git}"
-  repository="${repository#*:}"
 
   # Create pull request.
-  open "https://github.com/${repository}/pull/new/${branch}"
+  open "https://${repository}/pull/new/${branch}"
 }
 
 # Removes trash and lists home.
