@@ -72,6 +72,14 @@ function __update_repositories {
     # Update repository.
     git pull --prune --rebase
 
+    # Check upstream.
+    if git remote get-url upstream &> /dev/null
+    then
+      # Update repository.
+      git pull --prune --rebase upstream $(git branch --show-current) 2> /dev/null
+      git diff --quiet @{push} || git push --quiet --force
+    fi
+
     # List branches.
     git branch --all
 
