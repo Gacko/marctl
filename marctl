@@ -65,14 +65,12 @@ function __update_repositories {
     echo "# ${repository:t}"
 
     # Reset repository.
-    (
-      git clean -xfd
-      git reset --hard
-      git checkout main || git checkout master
-    ) &> /dev/null
+    git clean --quiet -xd --force
+    git reset --quiet --hard
+    git checkout --quiet main || git checkout --quiet master
 
     # Update repository.
-    git pull --prune --rebase 2> /dev/null
+    git pull --prune --rebase
 
     # List branches.
     git branch --all
