@@ -53,7 +53,7 @@ function __update_repositories {
   clear
 
   # Get repositories.
-  repositories=($(find "${HOME}/Documents" -mindepth 2 -maxdepth 2 -type d -name .git -exec dirname "{}" + | sort))
+  repositories=(${@:-$(find "${HOME}/Documents" -mindepth 2 -maxdepth 2 -type d -name .git -exec dirname "{}" + | sort)})
 
   # Iterate repositories.
   for repository in ${repositories}
