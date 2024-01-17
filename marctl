@@ -5,7 +5,7 @@ set -o errexit -o nounset -o pipefail
 # Creates a branch.
 function __create_branch {
   # Get name.
-  name="${1:-$(cat /dev/urandom | LC_ALL=C tr -dc "a-z0-9" | head -c 5)}"
+  name="${1:-$(cat /dev/urandom | LC_ALL=C tr -dc "a-z0-9" | head -c 5 || :)}"
 
   # Create branch.
   git checkout -b "${name}"
