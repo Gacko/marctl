@@ -88,10 +88,16 @@ function __update_repositories {
   done
 }
 
-# Updates schemas.
-function __update_schemas {
+# Updates documentation of charts.
+function __update_documentation {
+  # Get root.
+  root="${1:-.}"
+
+  # Update documentation.
+  helm-docs --chart-search-root "${root}"
+
   # Get schemas.
-  schemas=(${@:-$(find . -type f -name "*.schema.json")})
+  schemas=($(find "${root}" -type f -name "*.schema.json"))
 
   # Iterate schemas.
   for schema in ${schemas}
