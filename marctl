@@ -88,6 +88,15 @@ function __update_repositories {
   done
 }
 
+# Updates permissions & attributes of media.
+function __update_permissions {
+  # Update permissions.
+  find "${HOME}/Music/Music/Media.localized/Music" ${HOME}/Pictures/20* "${HOME}/Pictures/Lightroom" -type d -not -perm 755 -exec chmod 755 "{}" + -o -type f -not -perm 644 -exec chmod 644 "{}" +
+
+  # Update attributes.
+  xattr -cr "${HOME}/Music/Music/Media.localized/Music" ${HOME}/Pictures/20* "${HOME}/Pictures/Lightroom"
+}
+
 # Updates documentation of charts.
 function __update_documentation {
   # Get root.
