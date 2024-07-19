@@ -29,6 +29,27 @@ function __create_pull-request {
   open "https://${repository}/pull/new/${branch}"
 }
 
+# Creates a backup.
+function __create_backup {
+  # Get volume.
+  volume="/Volumes/${1}"
+
+  # Check volume.
+  if [ ! -d "${volume}" ]
+  then
+    # Print usage.
+    echo "Usage: ${0} volume"
+    # Exit erroneously.
+    exit 1
+  fi
+
+  # Create backup.
+  rsync --verbose --archive --delete "${HOME}/Music/Music/Media.localized/Music" "${HOME}/Pictures" --exclude="Pictures/Photos Library.photoslibrary" "${volume}/"
+
+  # Unmount volume.
+  diskutil unmount "${volume}"
+}
+
 # Removes trash and lists home.
 function __list_home {
   # Clear screen.
