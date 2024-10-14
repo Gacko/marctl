@@ -86,7 +86,7 @@ function __update_repositories {
     echo "# ${repository:t}"
 
     # Reset repository.
-    git clean --quiet -xd --force
+    git clean --quiet -xd --force --force
     git reset --quiet --hard
     git checkout --quiet main 2> /dev/null || git checkout --quiet master
 
