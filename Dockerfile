@@ -8,6 +8,7 @@ ARG TARGETARCH
 # Install dependencies.
 RUN apk add \
     curl \
+    git \
     kubectl \
     make \
     yq
