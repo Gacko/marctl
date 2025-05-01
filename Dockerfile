@@ -1,12 +1,21 @@
 # Start from Alpine.
 FROM alpine:3.21.3
 
+# Provide target OS & architecture.
+ARG TARGETOS
+ARG TARGETARCH
+
 # Install dependencies.
 RUN apk add \
     curl \
     kubectl \
     make \
     yq
+
+# Install vendir.
+ENV VENDIR_VERSION=v0.43.2
+RUN curl --silent --show-error --fail --location "https://github.com/carvel-dev/vendir/releases/download/${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output /usr/local/bin/vendir && \
+    chmod 755 /usr/local/bin/vendir
 
 # Change directory.
 WORKDIR /root
