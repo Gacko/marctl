@@ -50,6 +50,12 @@ function __create_backup {
   diskutil unmount "${volume}"
 }
 
+# Creates a container.
+function __create_container {
+  # Create container.
+  docker run --interactive --tty --rm ${@} ghcr.io/gacko/marctl:latest
+}
+
 # Removes trash and lists home.
 function __list_home {
   # Clear screen.
