@@ -23,4 +23,4 @@ RUN curl --silent --show-error --fail --location "https://github.com/carvel-dev/
 COPY pypass /usr/local/bin/pypass
 
 # Change directory.
-WORKDIR /root
+WORKDIR /wrk
