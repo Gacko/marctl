@@ -7,6 +7,7 @@ ARG TARGETARCH
 
 # Install dependencies.
 RUN apk add \
+    bash \
     curl \
     git \
     kubectl \
