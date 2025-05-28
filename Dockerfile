@@ -10,6 +10,7 @@ RUN apk add \
     bash \
     curl \
     git \
+    helm \
     kubectl \
     make \
     python3 \
