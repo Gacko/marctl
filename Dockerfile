@@ -9,12 +9,16 @@ ARG TARGETARCH
 RUN apk add \
     bash \
     curl \
+    diffutils \
     git \
+    go \
+    grep \
     helm \
     kubectl \
     make \
     python3 \
-    yq
+    yq \
+    zsh
 
 # Install vendir.
 ENV VENDIR_VERSION=v0.43.2
@@ -26,3 +30,6 @@ COPY pypass /usr/local/bin/pypass
 
 # Change directory.
 WORKDIR /wrk
+
+# Set entrypoint.
+ENTRYPOINT [ "/bin/zsh" ]
