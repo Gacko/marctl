@@ -8,6 +8,7 @@ ARG TARGETARCH
 # Install dependencies.
 RUN apk add \
     bash \
+    coreutils \
     curl \
     diffutils \
     git \
