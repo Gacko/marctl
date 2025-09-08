@@ -12,6 +12,7 @@ RUN apk add \
     curl \
     diffutils \
     git \
+    github-cli \
     go \
     grep \
     helm \
