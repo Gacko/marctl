@@ -52,8 +52,11 @@ function __create_backup {
 
 # Creates a container.
 function __create_container {
+  # Define working directory.
+  [[ "${PWD}" = "${HOME}/Documents/"* ]] && workdir="/wrk/${PWD#${HOME}/Documents/}" || workdir="/wrk"
+
   # Create container.
-  docker run --interactive --tty --rm ${@} ghcr.io/gacko/marctl:latest
+  docker run --volume "${HOME}/Documents:/wrk" --workdir "${workdir}" --env GITHUB_TOKEN="${GITHUB_TOKEN}" --interactive --tty --rm ${@} ghcr.io/gacko/marctl:latest
 }
 
 # Removes trash and lists home.
