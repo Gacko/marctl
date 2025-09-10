@@ -28,7 +28,7 @@ RUN curl --silent --show-error --fail --location "https://github.com/carvel-dev/
     chmod 755 /usr/local/bin/vendir
 
 # Install devctl.
-ENV DEVCTL_VERSION=v7.10.2
+ENV DEVCTL_VERSION=v7.10.3
 RUN curl --silent --show-error --fail --location "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" | tar --extract --gzip --directory /usr/local/bin --strip-components 1 "devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}/devctl"
 
 # Add pypass.
