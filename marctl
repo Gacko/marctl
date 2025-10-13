@@ -5,7 +5,7 @@ set -o errexit -o nounset -o pipefail
 # Creates a branch.
 function __create_branch {
   # Get name.
-  name="${1:-$(cat /dev/urandom | LC_ALL=C tr -dc "g-z" | head -c 5 || :)}"
+  name="${1:-$(__create_id)}"
 
   # Create branch.
   git checkout -b "${name}"
@@ -57,6 +57,12 @@ function __create_container {
 
   # Create container.
   docker run --volume "${HOME}/Documents:/wrk" --workdir "${workdir}" --env GITHUB_TOKEN="${GITHUB_TOKEN}" --interactive --tty --rm ${@} ghcr.io/gacko/marctl:latest
+}
+
+# Creates an ID.
+function __create_id {
+  # Create ID.
+  cat /dev/urandom | LC_ALL=C tr -dc "g-z" | head -c 5 || :
 }
 
 # Removes trash and lists home.
