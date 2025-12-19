@@ -6,7 +6,7 @@ ARG TARGETOS
 ARG TARGETARCH
 
 # Install dependencies.
-RUN apk add \
+RUN apk add --no-cache \
     bash \
     coreutils \
     curl \
