@@ -59,7 +59,7 @@ function __create_backup {
   fi
 
   # Create backup.
-  rsync --verbose --archive --delete "${HOME}/Music/Music/Media.localized/Music" "${HOME}/Pictures" --exclude="Pictures/Photos Library.photoslibrary" "${volume}/"
+  rsync --verbose --archive --delete "${HOME}/Music/Music/Media.localized/Music" "${HOME}/Pictures" --exclude="Pictures/.localized" --exclude="Pictures/Photos Library.photoslibrary" "${volume}/"
 
   # Unmount volume.
   diskutil unmount "${volume}"
