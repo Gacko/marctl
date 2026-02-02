@@ -11,10 +11,12 @@ RUN apk add --no-cache \
     coreutils \
     diffutils \
     findutils \
+    gcompat \
     git \
     go \
     grep \
     helm \
+    kubectl \
     make \
     python3 \
     zsh
@@ -33,6 +35,10 @@ RUN wget "https://github.com/norwoodj/helm-docs/releases/download/${HELM_DOCS_VE
 # Install helm-schema-gen.
 ENV HELM_SCHEMA_GEN_VERSION=v0.0.9
 RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_SCHEMA_GEN_VERSION#v}/helm-schema-gen_${HELM_SCHEMA_GEN_VERSION#v}_${TARGETOS}_${TARGETARCH/amd64/x86_64}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin helm-schema-gen && strip /usr/local/bin/helm-schema-gen
+
+# Install Teleport.
+ENV TELEPORT_VERSION=v18.6.5
+RUN wget "https://cdn.teleport.dev/teleport-${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
 
 # Install vendir.
 ENV VENDIR_VERSION=v0.45.1
