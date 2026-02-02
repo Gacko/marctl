@@ -19,6 +19,7 @@ RUN apk add --no-cache \
     kubectl \
     make \
     python3 \
+    yq \
     zsh
 
 # Extend PATH.
@@ -35,6 +36,10 @@ RUN wget "https://github.com/norwoodj/helm-docs/releases/download/${HELM_DOCS_VE
 # Install helm-schema-gen.
 ENV HELM_SCHEMA_GEN_VERSION=v0.0.9
 RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_SCHEMA_GEN_VERSION#v}/helm-schema-gen_${HELM_SCHEMA_GEN_VERSION#v}_${TARGETOS}_${TARGETARCH/amd64/x86_64}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner helm-schema-gen && strip /usr/local/bin/helm-schema-gen
+
+# Install kubectl-gs.
+ENV KUBECTL_GS_VERSION=v4.10.0
+RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/${KUBECTL_GS_VERSION}/kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}/kubectl-gs" && strip /usr/local/bin/kubectl-gs
 
 # Install Teleport.
 ENV TELEPORT_VERSION=v18.6.5
