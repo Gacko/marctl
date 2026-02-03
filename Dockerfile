@@ -53,10 +53,10 @@ ARG VENDIR_VERSION=v0.45.1
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
 # Add marctl.
-COPY marctl /usr/local/bin/marctl
+COPY usr/local/bin/marctl /usr/local/bin/marctl
 
 # Add pypass.
-COPY pypass /usr/local/bin/pypass
+COPY usr/local/bin/pypass /usr/local/bin/pypass
 
 # Change directory.
 WORKDIR /wrk
