@@ -74,10 +74,10 @@ function __list_home {
   cd "${HOME}"
 
   # Remove trash.
-  find "${HOME}" \( -path "${HOME}/.go" -o -path "${HOME}/Library" \) -prune -o -type f \( -name .DS_Store -o -name .lesshst \) -exec rm "{}" +
+  find "${HOME}" -path "${HOME}/Library" -prune -o -type f \( -name .DS_Store -o -name .lesshst \) -exec rm "{}" +
 
   # Get directories.
-  directories=($(find "${HOME}" -path "${HOME}/Library" -prune -o -mindepth 1 -maxdepth 1 -type d -not \( -name .Trash -o -name .zsh_sessions \) -print))
+  directories=($(find "${HOME}" \( -path "${HOME}/.Trash" -o -path "${HOME}/.zsh_sessions" -o -path "${HOME}/Library" \) -prune -o -mindepth 1 -maxdepth 1 -type d -print))
 
   # List home.
   (ls -lA . ${directories:t} && echo && echo iCloud: && ls -lA "${HOME}/Library/Mobile Documents/com~apple~CloudDocs") | grep --invert-match ^total
