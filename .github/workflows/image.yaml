@@ -8,8 +8,8 @@ on:
     - "*"
 
 jobs:
-  push:
-    name: Push
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     permissions:
