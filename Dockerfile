@@ -29,7 +29,7 @@ ENV PATH="/root/go/bin:${PATH}"
 COPY etc/zsh/zshrc.d/completion.zsh /etc/zsh/zshrc.d/completion.zsh
 
 # Install devctl.
-ARG DEVCTL_VERSION=v7.31.0
+ARG DEVCTL_VERSION=v7.32.0
 RUN wget "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}/devctl" && strip /usr/local/bin/devctl
 
 # Install helm-docs.
