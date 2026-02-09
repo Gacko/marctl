@@ -41,7 +41,16 @@ function __create_container {
   [[ "${PWD}" = "${HOME}/Documents/"* ]] && workdir="/wrk/${PWD#${HOME}/Documents/}" || workdir="/wrk"
 
   # Create container.
-  container run --volume "${HOME}/.kube:/root/.kube" --volume "${HOME}/.tsh:/root/.tsh" --volume "${HOME}/Documents:/wrk" --workdir "${workdir}" --env GITHUB_TOKEN="${GITHUB_TOKEN}" --interactive --tty --rm ${@} ghcr.io/gacko/marctl:latest
+  container run \
+    --volume "${HOME}/.kube:/root/.kube:ro" \
+    --volume "${HOME}/.tsh:/root/.tsh:ro" \
+    --volume "${HOME}/Documents:/wrk" \
+    --workdir "${workdir}" \
+    --env GITHUB_TOKEN="${GITHUB_TOKEN}" \
+    --interactive --tty \
+    --rm \
+    ${@} \
+    ghcr.io/gacko/marctl:latest
 }
 
 # Creates a backup.
