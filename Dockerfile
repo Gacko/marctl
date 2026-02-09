@@ -25,8 +25,8 @@ RUN apk add --no-cache \
 # Extend PATH.
 ENV PATH="/root/go/bin:${PATH}"
 
-# Enable completion.
-COPY etc/zsh/zshrc.d/completion.zsh /etc/zsh/zshrc.d/completion.zsh
+# Configure zsh.
+COPY etc/zsh/zshrc.d/* /etc/zsh/zshrc.d/
 
 # Install devctl.
 ARG DEVCTL_VERSION=v7.32.0
@@ -52,11 +52,8 @@ RUN wget "https://cdn.teleport.dev/teleport-${TELEPORT_VERSION}-${TARGETOS}-${TA
 ARG VENDIR_VERSION=v0.45.1
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
-# Add marctl.
-COPY usr/local/bin/marctl /usr/local/bin/marctl
-
-# Add pypass.
-COPY usr/local/bin/pypass /usr/local/bin/pypass
+# Add scripts.
+COPY usr/local/bin/* /usr/local/bin/
 
 # Change directory.
 WORKDIR /wrk
