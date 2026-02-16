@@ -45,7 +45,7 @@ ARG KUBECTL_GS_VERSION=v4.10.1
 RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/${KUBECTL_GS_VERSION}/kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}/kubectl-gs" && strip /usr/local/bin/kubectl-gs
 
 # Install Teleport.
-ARG TELEPORT_VERSION=v18.6.7
+ARG TELEPORT_VERSION=v18.6.8
 RUN wget "https://cdn.teleport.dev/teleport-${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
 
 # Install vendir.
