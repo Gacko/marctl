@@ -49,7 +49,7 @@ ARG TELEPORT_VERSION=v18.7.0
 RUN wget "https://cdn.teleport.dev/teleport-${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
 
 # Install vendir.
-ARG VENDIR_VERSION=v0.45.1
+ARG VENDIR_VERSION=v0.45.2
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
 # Add scripts.
