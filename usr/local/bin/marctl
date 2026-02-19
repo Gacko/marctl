@@ -49,8 +49,8 @@ function __create_container {
     --env GITHUB_TOKEN="${GITHUB_TOKEN}" \
     --interactive --tty \
     --rm \
-    ${@} \
-    ghcr.io/gacko/marctl:latest
+    ghcr.io/gacko/marctl:latest \
+    ${@}
 }
 
 # Creates a backup.
