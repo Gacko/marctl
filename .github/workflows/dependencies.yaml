@@ -1,0 +1,92 @@
+name: Dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 6 * * *"
+
+jobs:
+  update:
+    name: Update
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6.0.2
+
+    - name: Update dependencies
+      id: update
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |-
+        # Track changes.
+        changed="false"
+
+        # Map file by lines.
+        mapfile -t lines < Dockerfile
+
+        # Iterate lines.
+        for ((i = 0; i < ${#lines[@]}; i++))
+        do
+          # Get line.
+          line="${lines[$i]}"
+
+          # Check if line is a dependency comment.
+          if [[ "${line}" =~ ^#\ dependency:(.+/.+)$ ]]
+          then
+            # Get repository.
+            repository="${BASH_REMATCH[1]}"
+
+            # Get next line.
+            next="${lines[$((i + 1))]}"
+
+            # Check if next line is a variable assignment.
+            if [[ "${next}" =~ ^ARG\ (.+)=(.+)$ ]]
+            then
+              echo "::group::${repository}"
+
+              # Get variable.
+              variable="${BASH_REMATCH[1]}"
+
+              # Get current version.
+              current="${BASH_REMATCH[2]}"
+
+              # Get latest version.
+              latest="$(gh api "repos/${repository}/releases/latest" --jq ".tag_name")"
+
+              # Ensure latest version starts with "v".
+              [[ "$latest" == v* ]] || latest="v${latest}"
+
+              # Print current and latest versions.
+              echo "Current: ${current} | Latest: ${latest}"
+
+              # Check if current version is different from latest version.
+              if [[ "${current}" != "${latest}" ]]
+              then
+                # Update version.
+                sed --in-place "$((i + 2))c ARG ${variable}=${latest}" Dockerfile
+
+                # Mark as changed.
+                changed="true"
+              fi
+
+              echo "::endgroup::"
+            fi
+          fi
+        done
+
+        # Store changed.
+        echo "changed=${changed}" >> "${GITHUB_OUTPUT}"
+
+    - name: Create pull request
+      if: fromJSON(steps.update.outputs.changed)
+      uses: peter-evans/create-pull-request@v8.1.0
+      with:
+        branch: image/update-dependencies
+        commit-message: "Image: Update dependencies."
+        title: "Image: Update dependencies."
+        body: ""
