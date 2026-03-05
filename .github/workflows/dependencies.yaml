@@ -86,6 +86,7 @@ jobs:
       if: fromJSON(steps.update.outputs.changed)
       uses: peter-evans/create-pull-request@v8.1.0
       with:
+        token: ${{ secrets.CREATE_PULL_REQUEST }}
         branch: image/update-dependencies
         commit-message: "Image: Update dependencies."
         title: "Image: Update dependencies."
