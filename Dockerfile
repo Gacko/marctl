@@ -45,7 +45,7 @@ RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_S
 
 # Install kubectl-gs.
 # dependency:giantswarm/kubectl-gs
-ARG KUBECTL_GS_VERSION=v4.11.0
+ARG KUBECTL_GS_VERSION=v4.12.0
 RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/${KUBECTL_GS_VERSION}/kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}/kubectl-gs" && strip /usr/local/bin/kubectl-gs
 
 # Install Teleport.
