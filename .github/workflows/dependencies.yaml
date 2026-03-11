@@ -91,4 +91,4 @@ jobs:
         commit-message: "Image: Update dependencies."
         title: "Image: Update dependencies."
         body: ""
-        reviewers: Gacko
+        assignees: Gacko
