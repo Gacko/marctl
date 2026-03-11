@@ -40,6 +40,9 @@ function __create_container {
   # Define working directory.
   [[ "${PWD}" = "${HOME}/Documents/"* ]] && workdir="/wrk/${PWD#${HOME}/Documents/}" || workdir="/wrk"
 
+  # Define command.
+  [[ ${#} -gt 0 ]] && command=("-c" "${*}") || command=()
+
   # Create container.
   container run \
     --volume "${HOME}/.kube:/root/.kube:ro" \
@@ -50,7 +53,7 @@ function __create_container {
     --interactive --tty \
     --rm \
     ghcr.io/gacko/marctl:latest \
-    ${@}
+    ${command[@]}
 }
 
 # Creates a backup.
