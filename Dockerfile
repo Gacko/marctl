@@ -13,6 +13,7 @@ RUN apk add --no-cache \
     findutils \
     gcompat \
     git \
+    github-cli \
     go \
     grep \
     helm \
