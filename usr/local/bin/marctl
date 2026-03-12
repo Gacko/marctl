@@ -168,11 +168,15 @@ function __update_documentation {
 }
 
 # Get verb and object.
-verb="${1}"
-object="${2}"
+verb="${1:-}"
+object="${2:-}"
 
-# Shift arguments.
-shift ; shift
-
-# Call function.
-__${verb}_${object} ${@}
+# Check function.
+if (( ${+functions[__${verb}_${object}]} ))
+then
+  # Call function.
+  __${verb}_${object} ${@:3}
+else
+  # Create container.
+  __create_container ${@}
+fi
