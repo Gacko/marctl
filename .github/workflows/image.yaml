@@ -1,11 +1,12 @@
 name: Image
 
 on:
+  pull_request:
   push:
     branches:
-    - "**"
+    - main
     tags:
-    - "**"
+    - v*
 
 jobs:
   build:
@@ -29,16 +30,13 @@ jobs:
       uses: docker/metadata-action@v6.0.0
       with:
         images: ghcr.io/${{ github.repository }}
-        tags: |
-          type=sha,prefix=
-          type=ref,event=tag
 
     - name: Set up buildx
       uses: docker/setup-buildx-action@v4.0.0
 
-    - name: Push image
+    - name: Build image
       uses: docker/build-push-action@v7.0.0
       with:
         platforms: linux/amd64,linux/arm64
         tags: ${{ steps.metadata.outputs.tags }}
-        push: true
+        push: ${{ github.ref_type == 'tag' }}
