@@ -31,12 +31,12 @@ COPY etc/zsh/zshrc.d/* /etc/zsh/zshrc.d/
 
 # Install clusterctl.
 # dependency:kubernetes-sigs/cluster-api
-ARG CLUSTERCTL_VERSION=v1.12.4
+ARG CLUSTERCTL_VERSION=v1.12.5
 RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/${CLUSTERCTL_VERSION}/clusterctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/clusterctl && chmod 755 /usr/local/bin/clusterctl && strip /usr/local/bin/clusterctl
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=v7.36.0
+ARG DEVCTL_VERSION=v7.37.1
 RUN wget "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}/devctl" && strip /usr/local/bin/devctl
 
 # Install helm-docs.
