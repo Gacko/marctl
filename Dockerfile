@@ -36,7 +36,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/${CLU
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=v7.38.0
+ARG DEVCTL_VERSION=v7.39.0
 RUN wget "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}/devctl" && strip /usr/local/bin/devctl
 
 # Install helm-docs.
@@ -61,7 +61,7 @@ RUN wget "https://cdn.teleport.dev/teleport-${TELEPORT_VERSION}-${TARGETOS}-${TA
 
 # Install vendir.
 # dependency:carvel-dev/vendir
-ARG VENDIR_VERSION=v0.45.2
+ARG VENDIR_VERSION=v0.45.3
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
 # Add scripts.
