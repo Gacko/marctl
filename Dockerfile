@@ -34,7 +34,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/${CLU
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=v7.48.0
+ARG DEVCTL_VERSION=v8.0.0
 RUN wget "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}/devctl" && strip /usr/local/bin/devctl
 
 # Install helm-docs.
@@ -49,7 +49,7 @@ RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_S
 
 # Install kubectl-gs.
 # dependency:giantswarm/kubectl-gs
-ARG KUBECTL_GS_VERSION=v5.6.3
+ARG KUBECTL_GS_VERSION=v5.6.4
 RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/${KUBECTL_GS_VERSION}/kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "kubectl-gs-${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}/kubectl-gs" && strip /usr/local/bin/kubectl-gs
 
 # Install Teleport.
@@ -59,7 +59,7 @@ RUN wget "https://cdn.teleport.dev/teleport-${TELEPORT_VERSION}-${TARGETOS}-${TA
 
 # Install vendir.
 # dependency:carvel-dev/vendir
-ARG VENDIR_VERSION=v0.45.3
+ARG VENDIR_VERSION=v0.45.4
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
 # Add scripts.
