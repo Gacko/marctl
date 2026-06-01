@@ -7,8 +7,6 @@ ARG TARGETARCH
 
 # Install dependencies.
 RUN apk add --no-cache \
-    bash \
-    coreutils \
     diffutils \
     findutils \
     gcompat \
