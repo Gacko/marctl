@@ -34,8 +34,8 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/${CLU
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=v8.11.0
-RUN wget "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "devctl-${DEVCTL_VERSION}-${TARGETOS}-${TARGETARCH}/devctl" && strip /usr/local/bin/devctl
+ARG DEVCTL_VERSION=v8.13.0
+RUN wget "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
 # Install helm-docs.
 # dependency:norwoodj/helm-docs
