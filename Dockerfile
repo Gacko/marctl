@@ -34,7 +34,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/${CLU
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=v8.19.0
+ARG DEVCTL_VERSION=v8.20.1
 RUN wget "https://github.com/giantswarm/devctl/releases/download/${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
 # Install helm-docs.
@@ -54,7 +54,7 @@ RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/${KUBECTL_G
 
 # Install Teleport.
 # dependency:gravitational/teleport
-ARG TELEPORT_VERSION=v18.8.3
+ARG TELEPORT_VERSION=v18.9.0
 RUN wget "https://cdn.teleport.dev/teleport-${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
 
 # Install vendir.
