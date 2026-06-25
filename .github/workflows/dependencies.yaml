@@ -56,13 +56,10 @@ jobs:
               current="${BASH_REMATCH[2]}"
 
               # Get latest version.
-              latest="$(gh api "repos/${repository}/releases/latest" --jq ".tag_name")"
-
-              # Ensure latest version starts with "v".
-              [[ "$latest" == v* ]] || latest="v${latest}"
+              latest="$(gh api "repos/${repository}/releases/latest" --jq '.tag_name | ltrimstr("v")')"
 
               # Print current and latest versions.
-              echo "Current: ${current} | Latest: ${latest}"
+              echo "Current: v${current} | Latest: v${latest}"
 
               # Check if current version is different from latest version.
               if [[ "${current}" != "${latest}" ]]
