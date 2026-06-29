@@ -34,7 +34,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CL
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.32.0
+ARG DEVCTL_VERSION=8.33.0
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
