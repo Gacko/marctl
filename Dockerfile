@@ -55,7 +55,7 @@ RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/v${KUBECTL_
 
 # Install Teleport.
 # dependency:gravitational/teleport
-ARG TELEPORT_VERSION=18.9.1
+ARG TELEPORT_VERSION=18.9.2
 RUN wget "https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
 
 # Install vendir.
