@@ -38,6 +38,11 @@ ARG DEVCTL_VERSION=8.33.6
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
+# Install gitsemver.
+# dependency:giantswarm/gitsemver
+ARG GITSEMVER_VERSION=2.0.1
+RUN wget "https://github.com/giantswarm/gitsemver/releases/download/v${GITSEMVER_VERSION}/gitsemver-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/gitsemver && chmod 755 /usr/local/bin/gitsemver && strip /usr/local/bin/gitsemver
+
 # Install helm-docs.
 # dependency:norwoodj/helm-docs
 ARG HELM_DOCS_VERSION=1.14.2
