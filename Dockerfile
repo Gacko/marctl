@@ -29,7 +29,7 @@ COPY etc/zsh/zshrc.d/* /etc/zsh/zshrc.d/
 
 # Install clusterctl.
 # dependency:kubernetes-sigs/cluster-api
-ARG CLUSTERCTL_VERSION=1.13.3
+ARG CLUSTERCTL_VERSION=1.13.4
 RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CLUSTERCTL_VERSION}/clusterctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/clusterctl && chmod 755 /usr/local/bin/clusterctl && strip /usr/local/bin/clusterctl
 
 # Install devctl.
