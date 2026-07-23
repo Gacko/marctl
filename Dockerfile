@@ -34,7 +34,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CL
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.33.11
+ARG DEVCTL_VERSION=8.33.12
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
@@ -55,8 +55,8 @@ RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_S
 
 # Install kubectl-gs.
 # dependency:giantswarm/kubectl-gs
-ARG KUBECTL_GS_VERSION=5.6.4
-RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/v${KUBECTL_GS_VERSION}/kubectl-gs-v${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 "kubectl-gs-v${KUBECTL_GS_VERSION}-${TARGETOS}-${TARGETARCH}/kubectl-gs" && strip /usr/local/bin/kubectl-gs
+ARG KUBECTL_GS_VERSION=5.7.2
+RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/v${KUBECTL_GS_VERSION}/kubectl-gs-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/kubectl-gs && chmod 755 /usr/local/bin/kubectl-gs && strip /usr/local/bin/kubectl-gs
 
 # Install Teleport.
 # dependency:gravitational/teleport
