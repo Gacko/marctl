@@ -53,6 +53,11 @@ RUN wget "https://github.com/norwoodj/helm-docs/releases/download/v${HELM_DOCS_V
 ARG HELM_SCHEMA_GEN_VERSION=0.0.9
 RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_SCHEMA_GEN_VERSION}/helm-schema-gen_${HELM_SCHEMA_GEN_VERSION}_${TARGETOS}_${TARGETARCH/amd64/x86_64}.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner helm-schema-gen && strip /usr/local/bin/helm-schema-gen
 
+# Install helm-values-schema-json.
+# dependency:losisin/helm-values-schema-json
+ARG HELM_VALUES_SCHEMA_JSON_VERSION=2.5.0
+RUN wget "https://github.com/losisin/helm-values-schema-json/releases/download/v${HELM_VALUES_SCHEMA_JSON_VERSION}/helm-values-schema-json_${HELM_VALUES_SCHEMA_JSON_VERSION}_${TARGETOS}_${TARGETARCH}.tgz" --output-document - | tar --extract --gzip schema --to-stdout > /usr/local/bin/helm-values-schema-json && chmod 755 /usr/local/bin/helm-values-schema-json && strip /usr/local/bin/helm-values-schema-json
+
 # Install kubectl-gs.
 # dependency:giantswarm/kubectl-gs
 ARG KUBECTL_GS_VERSION=5.7.2
@@ -62,6 +67,11 @@ RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/v${KUBECTL_
 # dependency:gravitational/teleport
 ARG TELEPORT_VERSION=18.10.0
 RUN wget "https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
+
+# Install vCluster.
+# dependency:loft-sh/vcluster
+ARG VCLUSTER_VERSION=0.36.1
+RUN wget "https://github.com/loft-sh/vcluster/releases/download/v${VCLUSTER_VERSION}/vcluster-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vcluster && chmod 755 /usr/local/bin/vcluster && strip /usr/local/bin/vcluster
 
 # Install vendir.
 # dependency:carvel-dev/vendir
