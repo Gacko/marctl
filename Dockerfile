@@ -29,12 +29,12 @@ COPY etc/zsh/zshrc.d/* /etc/zsh/zshrc.d/
 
 # Install clusterctl.
 # dependency:kubernetes-sigs/cluster-api
-ARG CLUSTERCTL_VERSION=1.14.1
+ARG CLUSTERCTL_VERSION=1.14.2
 RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CLUSTERCTL_VERSION}/clusterctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/clusterctl && chmod 755 /usr/local/bin/clusterctl && strip /usr/local/bin/clusterctl
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.53.0
+ARG DEVCTL_VERSION=8.54.2
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
@@ -75,7 +75,7 @@ RUN wget "https://github.com/loft-sh/vcluster/releases/download/v${VCLUSTER_VERS
 
 # Install vendir.
 # dependency:carvel-dev/vendir
-ARG VENDIR_VERSION=0.46.1
+ARG VENDIR_VERSION=0.46.2
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/v${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
 # Add scripts.
