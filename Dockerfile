@@ -34,13 +34,13 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CL
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.58.0
+ARG DEVCTL_VERSION=8.64.8
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
 # Install gitsemver.
 # dependency:giantswarm/gitsemver
-ARG GITSEMVER_VERSION=2.0.1
+ARG GITSEMVER_VERSION=3.0.1
 RUN wget "https://github.com/giantswarm/gitsemver/releases/download/v${GITSEMVER_VERSION}/gitsemver-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/gitsemver && chmod 755 /usr/local/bin/gitsemver && strip /usr/local/bin/gitsemver
 
 # Install helm-docs.
