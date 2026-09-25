@@ -34,7 +34,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CL
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.98.7
+ARG DEVCTL_VERSION=8.99.2
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
@@ -70,7 +70,7 @@ RUN wget "https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-${TARGETOS}-${T
 
 # Install vCluster.
 # dependency:loft-sh/vcluster
-ARG VCLUSTER_VERSION=0.37.1
+ARG VCLUSTER_VERSION=0.37.2
 RUN wget "https://github.com/loft-sh/vcluster/releases/download/v${VCLUSTER_VERSION}/vcluster-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vcluster && chmod 755 /usr/local/bin/vcluster && strip /usr/local/bin/vcluster
 
 # Install vendir.
