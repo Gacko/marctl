@@ -34,7 +34,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CL
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.100.0
+ARG DEVCTL_VERSION=8.101.6
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
@@ -60,7 +60,7 @@ RUN wget "https://github.com/losisin/helm-values-schema-json/releases/download/v
 
 # Install kubectl-gs.
 # dependency:giantswarm/kubectl-gs
-ARG KUBECTL_GS_VERSION=5.8.0
+ARG KUBECTL_GS_VERSION=5.8.1
 RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/v${KUBECTL_GS_VERSION}/kubectl-gs-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/kubectl-gs && chmod 755 /usr/local/bin/kubectl-gs && strip /usr/local/bin/kubectl-gs
 
 # Install Teleport.
