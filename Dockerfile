@@ -11,7 +11,6 @@ RUN apk add --no-cache \
     findutils \
     gcompat \
     git \
-    github-cli \
     go \
     grep \
     helm \
@@ -58,11 +57,6 @@ RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_S
 # dependency:losisin/helm-values-schema-json
 ARG HELM_VALUES_SCHEMA_JSON_VERSION=2.6.0
 RUN wget "https://github.com/losisin/helm-values-schema-json/releases/download/v${HELM_VALUES_SCHEMA_JSON_VERSION}/helm-values-schema-json_${HELM_VALUES_SCHEMA_JSON_VERSION}_${TARGETOS}_${TARGETARCH}.tgz" --output-document - | tar --extract --gzip schema --to-stdout > /usr/local/bin/helm-values-schema-json && chmod 755 /usr/local/bin/helm-values-schema-json && strip /usr/local/bin/helm-values-schema-json
-
-# Install kubectl-gs.
-# dependency:giantswarm/kubectl-gs
-ARG KUBECTL_GS_VERSION=5.8.1
-RUN wget "https://github.com/giantswarm/kubectl-gs/releases/download/v${KUBECTL_GS_VERSION}/kubectl-gs-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/kubectl-gs && chmod 755 /usr/local/bin/kubectl-gs && strip /usr/local/bin/kubectl-gs
 
 # Install Teleport.
 # dependency:gravitational/teleport
