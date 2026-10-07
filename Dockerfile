@@ -28,12 +28,12 @@ COPY etc/zsh/zshrc.d/* /etc/zsh/zshrc.d/
 
 # Install clusterctl.
 # dependency:kubernetes-sigs/cluster-api
-ARG CLUSTERCTL_VERSION=1.14.2
+ARG CLUSTERCTL_VERSION=1.14.3
 RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CLUSTERCTL_VERSION}/clusterctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/clusterctl && chmod 755 /usr/local/bin/clusterctl && strip /usr/local/bin/clusterctl
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.115.3
+ARG DEVCTL_VERSION=8.119.2
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 ENV CI=true
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
