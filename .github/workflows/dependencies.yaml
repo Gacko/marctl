@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
 
     steps:
     - name: Checkout code
@@ -80,6 +79,7 @@ jobs:
         echo "changed=${changed}" >> "${GITHUB_OUTPUT}"
 
     - name: Create pull request
+      id: pull-request
       if: fromJSON(steps.update.outputs.changed)
       uses: peter-evans/create-pull-request@v8.1.1
       with:
@@ -89,3 +89,11 @@ jobs:
         title: "Image: Update dependencies."
         body: ""
         assignees: Gacko
+
+    - name: Enable auto-merge
+      if: steps.pull-request.outputs.pull-request-number
+      uses: peter-evans/enable-pull-request-automerge@v3.0.0
+      with:
+        token: ${{ secrets.CREATE_PULL_REQUEST }}
+        pull-request-number: ${{ steps.pull-request.outputs.pull-request-number }}
+        merge-method: squash
