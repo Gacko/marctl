@@ -59,8 +59,7 @@ ARG HELM_VALUES_SCHEMA_JSON_VERSION=2.6.0
 RUN wget "https://github.com/losisin/helm-values-schema-json/releases/download/v${HELM_VALUES_SCHEMA_JSON_VERSION}/helm-values-schema-json_${HELM_VALUES_SCHEMA_JSON_VERSION}_${TARGETOS}_${TARGETARCH}.tgz" --output-document - | tar --extract --gzip schema --to-stdout > /usr/local/bin/helm-values-schema-json && chmod 755 /usr/local/bin/helm-values-schema-json && strip /usr/local/bin/helm-values-schema-json
 
 # Install Teleport.
-# dependency:gravitational/teleport
-ARG TELEPORT_VERSION=18.10.0
+ARG TELEPORT_VERSION=18.11.4
 RUN wget "https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
 
 # Install vCluster.
