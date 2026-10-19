@@ -69,7 +69,7 @@ RUN wget "https://github.com/loft-sh/vcluster/releases/download/v${VCLUSTER_VERS
 
 # Install vendir.
 # dependency:carvel-dev/vendir
-ARG VENDIR_VERSION=0.46.2
+ARG VENDIR_VERSION=0.46.3
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/v${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
 # Add scripts.
