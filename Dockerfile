@@ -1,5 +1,5 @@
 # Start from Alpine.
-FROM alpine:3.24.2
+FROM alpine:3.24.3
 
 # Provide target OS & architecture.
 ARG TARGETOS
