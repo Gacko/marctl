@@ -33,14 +33,14 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CL
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.161.17
+ARG DEVCTL_VERSION=8.163.0
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 ENV CI=true
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
 # Install gitsemver.
 # dependency:giantswarm/gitsemver
-ARG GITSEMVER_VERSION=3.0.12
+ARG GITSEMVER_VERSION=3.1.0
 RUN wget "https://github.com/giantswarm/gitsemver/releases/download/v${GITSEMVER_VERSION}/gitsemver-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/gitsemver && chmod 755 /usr/local/bin/gitsemver && strip /usr/local/bin/gitsemver
 
 # Install helm-docs.
@@ -64,7 +64,7 @@ RUN wget "https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-${TARGETOS}-${T
 
 # Install vCluster.
 # dependency:loft-sh/vcluster
-ARG VCLUSTER_VERSION=0.37.5
+ARG VCLUSTER_VERSION=0.37.6
 RUN wget "https://github.com/loft-sh/vcluster/releases/download/v${VCLUSTER_VERSION}/vcluster-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vcluster && chmod 755 /usr/local/bin/vcluster && strip /usr/local/bin/vcluster
 
 # Install vendir.
