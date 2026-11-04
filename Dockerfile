@@ -28,19 +28,19 @@ COPY etc/zsh/zshrc.d/* /etc/zsh/zshrc.d/
 
 # Install clusterctl.
 # dependency:kubernetes-sigs/cluster-api
-ARG CLUSTERCTL_VERSION=1.14.3
+ARG CLUSTERCTL_VERSION=1.14.4
 RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CLUSTERCTL_VERSION}/clusterctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/clusterctl && chmod 755 /usr/local/bin/clusterctl && strip /usr/local/bin/clusterctl
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.163.0
+ARG DEVCTL_VERSION=8.163.1
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 ENV CI=true
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
 
 # Install gitsemver.
 # dependency:giantswarm/gitsemver
-ARG GITSEMVER_VERSION=3.1.0
+ARG GITSEMVER_VERSION=3.1.1
 RUN wget "https://github.com/giantswarm/gitsemver/releases/download/v${GITSEMVER_VERSION}/gitsemver-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/gitsemver && chmod 755 /usr/local/bin/gitsemver && strip /usr/local/bin/gitsemver
 
 # Install helm-docs.
