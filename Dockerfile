@@ -62,11 +62,6 @@ RUN wget "https://github.com/losisin/helm-values-schema-json/releases/download/v
 ARG TELEPORT_VERSION=18.10.7
 RUN wget "https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-${TARGETOS}-${TARGETARCH}-bin.tar.gz" --output-document - | tar --extract --gzip --directory /usr/local/bin --no-same-owner --strip-components 1 teleport/tsh && strip /usr/local/bin/tsh
 
-# Install vCluster.
-# dependency:loft-sh/vcluster
-ARG VCLUSTER_VERSION=0.37.6
-RUN wget "https://github.com/loft-sh/vcluster/releases/download/v${VCLUSTER_VERSION}/vcluster-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vcluster && chmod 755 /usr/local/bin/vcluster && strip /usr/local/bin/vcluster
-
 # Install vendir.
 # dependency:carvel-dev/vendir
 ARG VENDIR_VERSION=0.46.3
