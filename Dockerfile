@@ -33,7 +33,7 @@ RUN wget "https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CL
 
 # Install devctl.
 # dependency:giantswarm/devctl
-ARG DEVCTL_VERSION=8.167.8
+ARG DEVCTL_VERSION=8.167.10
 ENV DEVCTL_UNSAFE_FORCE_VERSION=${DEVCTL_VERSION}
 ENV CI=true
 RUN wget "https://github.com/giantswarm/devctl/releases/download/v${DEVCTL_VERSION}/devctl-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/devctl && chmod 755 /usr/local/bin/devctl && strip /usr/local/bin/devctl
@@ -55,7 +55,7 @@ RUN wget "https://github.com/mihaisee/helm-schema-gen/releases/download/${HELM_S
 
 # Install helm-values-schema-json.
 # dependency:losisin/helm-values-schema-json
-ARG HELM_VALUES_SCHEMA_JSON_VERSION=2.6.0
+ARG HELM_VALUES_SCHEMA_JSON_VERSION=2.6.1
 RUN wget "https://github.com/losisin/helm-values-schema-json/releases/download/v${HELM_VALUES_SCHEMA_JSON_VERSION}/helm-values-schema-json_${HELM_VALUES_SCHEMA_JSON_VERSION}_${TARGETOS}_${TARGETARCH}.tgz" --output-document - | tar --extract --gzip schema --to-stdout > /usr/local/bin/helm-values-schema-json && chmod 755 /usr/local/bin/helm-values-schema-json && strip /usr/local/bin/helm-values-schema-json
 
 # Install Teleport.
@@ -64,7 +64,7 @@ RUN wget "https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-${TARGETOS}-${T
 
 # Install vendir.
 # dependency:carvel-dev/vendir
-ARG VENDIR_VERSION=0.46.3
+ARG VENDIR_VERSION=0.47.0
 RUN wget "https://github.com/carvel-dev/vendir/releases/download/v${VENDIR_VERSION}/vendir-${TARGETOS}-${TARGETARCH}" --output-document /usr/local/bin/vendir && chmod 755 /usr/local/bin/vendir && strip /usr/local/bin/vendir
 
 # Add scripts.
