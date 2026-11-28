@@ -41,7 +41,7 @@ function __create_container {
   [[ "${PWD}" = "${HOME}/Documents/"* ]] && workdir="/wrk/${PWD#${HOME}/Documents/}" || workdir="/wrk"
 
   # Define command.
-  [[ ${#} -gt 0 ]] && command=("-c" "${*}") || command=()
+  [[ ${#} -gt 0 ]] && command=("-c" "${(j: :)${(q)@}}") || command=()
 
   # Create container.
   container run \
@@ -56,10 +56,10 @@ function __create_container {
 # Creates a backup.
 function __create_backup {
   # Get volume.
-  volume="/Volumes/${1}"
+  volume="/Volumes/${1:-}"
 
   # Check volume.
-  if [ ! -d "${volume}" ]
+  if ! diskutil info "${volume}" 2> /dev/null | grep "Device Location: *External" > /dev/null
   then
     # Print usage.
     echo "Usage: ${0} volume"
@@ -86,10 +86,10 @@ function __list_home {
   find "${HOME}" \( -path "${HOME}/.go" -o -path "${HOME}/Library" \) -prune -o -type f \( -name .DS_Store -o -name .lesshst \) -exec rm "{}" +
 
   # Get directories.
-  directories=($(find "${HOME}" \( -path "${HOME}/.Trash" -o -path "${HOME}/.zsh_sessions" -o -path "${HOME}/Library" \) -prune -o -mindepth 1 -maxdepth 1 -type d -print))
+  directories=(${(f)"$(find "${HOME}" \( -path "${HOME}/.Trash" -o -path "${HOME}/.zsh_sessions" -o -path "${HOME}/Library" \) -prune -o -mindepth 1 -maxdepth 1 -type d -print)"})
 
   # List home.
-  (ls -lA . ${directories:t} && echo && echo iCloud: && ls -lA "${HOME}/Library/Mobile Documents/com~apple~CloudDocs") | grep --invert-match ^total
+  (ls -lA -- . ${directories:t} && echo && echo iCloud: && ls -lA "${HOME}/Library/Mobile Documents/com~apple~CloudDocs") | grep --invert-match ^total
 }
 
 # Resets & updates repositories in Documents.
@@ -98,7 +98,7 @@ function __update_repositories {
   clear
 
   # Get repositories.
-  repositories=(${@:-$(find "${HOME}/Documents" -mindepth 2 -maxdepth 2 -type d -name .git -exec dirname "{}" + | sort)})
+  repositories=(${(f)"$(find "${HOME}/Documents" -mindepth 2 -maxdepth 2 -type d -name .git -exec dirname "{}" + | sort)"})
 
   # Iterate repositories.
   for repository in ${repositories}
@@ -122,7 +122,7 @@ function __update_repositories {
     then
       # Update repository.
       git pull --prune --rebase upstream $(git branch --show-current) 2> /dev/null
-      git diff --quiet @{push} || git push --quiet --force
+      git diff --quiet @{push} || git push --quiet --force-with-lease
     fi
 
     # List branches.
