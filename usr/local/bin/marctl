@@ -45,11 +45,8 @@ function __create_container {
 
   # Create container.
   container run \
-    --volume "${HOME}/.kube:/root/.kube:ro" \
-    --volume "${HOME}/.tsh:/root/.tsh:ro" \
     --volume "${HOME}/Documents:/wrk" \
     --workdir "${workdir}" \
-    --env GITHUB_TOKEN="${GITHUB_TOKEN}" \
     --interactive --tty \
     --rm \
     ghcr.io/gacko/marctl:main \
@@ -143,28 +140,6 @@ function __update_permissions {
 
   # Update attributes.
   xattr -cr "${HOME}/Music/Music/Media.localized/Music" ${HOME}/Pictures/20* "${HOME}/Pictures/Lightroom"
-}
-
-# Updates documentation of charts.
-function __update_documentation {
-  # Get root.
-  root="${1:-.}"
-
-  # Update documentation.
-  helm-docs --chart-search-root "${root}"
-
-  # Get schemas.
-  schemas=($(find "${root}" -type f -name "*.schema.json"))
-
-  # Iterate schemas.
-  for schema in ${schemas}
-  do
-    # Get YAML.
-    yaml="${schema%.schema.json}.yaml"
-
-    # Update schema.
-    helm-schema-gen "${yaml}" > "${schema}"
-  done
 }
 
 # Get verb and object.
