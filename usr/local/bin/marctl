@@ -11,6 +11,7 @@ function __create_id {
 # Creates a branch.
 function __create_branch {
   # Get name.
+  local name
   name="${1:-$(__create_id)}"
 
   # Create branch.
@@ -20,12 +21,14 @@ function __create_branch {
 # Pushes a branch and creates a pull request.
 function __create_pull-request {
   # Get branch.
+  local branch
   branch="${1:-$(git branch --show-current)}"
 
   # Push branch.
   git push --set-upstream origin "${branch}"
 
   # Get repository.
+  local repository
   repository="$(git remote get-url origin)"
   repository="${repository#*@}"
   repository="${repository/://}"
@@ -38,10 +41,12 @@ function __create_pull-request {
 # Creates a container.
 function __create_container {
   # Define working directory.
+  local workdir
   [[ "${PWD}" = "${HOME}/Documents/"* ]] && workdir="/wrk/${PWD#${HOME}/Documents/}" || workdir="/wrk"
 
-  # Define command.
-  [[ ${#} -gt 0 ]] && command=("-c" "${(j: :)${(q)@}}") || command=()
+  # Define arguments.
+  local -a arguments
+  [[ ${#} -gt 0 ]] && arguments=("-c" "${(j: :)${(q)@}}") || arguments=()
 
   # Create container.
   container run \
@@ -50,13 +55,13 @@ function __create_container {
     --interactive --tty \
     --rm \
     ghcr.io/gacko/marctl:main \
-    ${command[@]}
+    "${arguments[@]}"
 }
 
 # Creates a backup.
 function __create_backup {
   # Get volume.
-  volume="/Volumes/${1:-}"
+  local volume="/Volumes/${1:-}"
 
   # Check volume.
   if ! diskutil info "${volume}" 2> /dev/null | grep "Device Location: *External" > /dev/null
@@ -86,6 +91,7 @@ function __list_home {
   find "${HOME}" \( -path "${HOME}/.go" -o -path "${HOME}/Library" \) -prune -o -type f \( -name .DS_Store -o -name .lesshst \) -exec rm "{}" +
 
   # Get directories.
+  local -a directories
   directories=(${(f)"$(find "${HOME}" \( -path "${HOME}/.Trash" -o -path "${HOME}/.zsh_sessions" -o -path "${HOME}/Library" \) -prune -o -mindepth 1 -maxdepth 1 -type d -print)"})
 
   # List home.
@@ -98,9 +104,11 @@ function __update_repositories {
   clear
 
   # Get repositories.
+  local -a repositories
   repositories=(${(f)"$(find "${HOME}/Documents" -mindepth 2 -maxdepth 2 -type d -name .git -exec dirname "{}" + | sort)"})
 
   # Iterate repositories.
+  local repository
   for repository in ${repositories}
   do
     # Go to repository.
@@ -136,10 +144,10 @@ function __update_repositories {
 # Updates permissions & attributes of media.
 function __update_permissions {
   # Update permissions.
-  find "${HOME}/Music/Music/Media.localized/Music" ${HOME}/Pictures/20* "${HOME}/Pictures/Lightroom" -type d -not -perm 755 -exec chmod 755 "{}" + -o -type f -not -perm 644 -exec chmod 644 "{}" +
+  find "${HOME}/Music/Music/Media.localized/Music" ${HOME}/Pictures/20*(N) "${HOME}/Pictures/Lightroom" -type d -not -perm 755 -exec chmod 755 "{}" + -o -type f -not -perm 644 -exec chmod 644 "{}" +
 
   # Update attributes.
-  xattr -cr "${HOME}/Music/Music/Media.localized/Music" ${HOME}/Pictures/20* "${HOME}/Pictures/Lightroom"
+  xattr -cr "${HOME}/Music/Music/Media.localized/Music" ${HOME}/Pictures/20*(N) "${HOME}/Pictures/Lightroom"
 }
 
 # Get verb and object.
@@ -150,8 +158,8 @@ object="${2:-}"
 if (( ${+functions[__${verb}_${object}]} ))
 then
   # Call function.
-  __${verb}_${object} ${@:3}
+  __${verb}_${object} "${@:3}"
 else
   # Create container.
-  __create_container ${@}
+  __create_container "${@}"
 fi
